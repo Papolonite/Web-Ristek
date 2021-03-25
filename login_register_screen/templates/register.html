@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br>
+{% if user.is_authenticated %}
+    <h2>Hey, you Already Logged in</h2>
+    <p><a href={% url 'home' %}> Go Home </p>
+{% else %}
+<form method = "POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-light" type="submit" value="Register">
+</form>
+{% endif %}
+{% endblock content %}

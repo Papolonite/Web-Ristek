@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'login_register_screen',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +124,8 @@ STATIC_URL = '/static/'
 
 # Media location
 MEDIA_ROOT = '/media/'
+
+# Crispy Form Settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
