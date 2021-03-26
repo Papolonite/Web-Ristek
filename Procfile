@@ -1,0 +1,1 @@
+web: gunicorn webcore.wsgi:application --log-file -
