@@ -12,6 +12,10 @@
                     <p class="lead">Posted by : {{ posted_by }}  &nbsp |</p>
                     <p class="lead">&nbsp Posted at : {{ posted_time }}  &nbsp |</p>
                     <p class="lead">&nbsp Like : {{ posted_time }}  &nbsp </p>
+                    {% if id  %}
+                        <a href="{% url 'delete_post' id=id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+                        <a href="{% url 'update_post' id=id %}"><button type="button" class="btn btn-success">Edit</button></a>    
+                    {% endif %}
                 </div>
                 <hr class="my-4">
                 <p class="text-break">{{ content }}</p>
@@ -32,8 +36,12 @@
             <div class="card-body">
                 <p class="card-text">{{ i.comment }}</p>
                 <div class="d-inline-flex p-2">
-                     <p class="card-text"><small class="text-muted">By : {{ i.user_comment.user.username }} &nbsp | </small></p>
-                    <p class="card-text"><small class="text-muted">&nbsp Time : {{ i.comment_date }} <br></small></p>
+                    <p class="card-text"><small class="text-muted">By : {{ i.user_comment.user.username }} &nbsp | </small></p>
+                    <p class="card-text"><small class="text-muted">&nbsp Time : {{ i.comment_date }} &nbsp<br></small></p>
+                    {% if i.user_comment.user == request.user  %}
+                         <a href="{% url 'delete_comment' id=i.id %}"><button type="button" class="btn btn-danger">Delete</button> &nbsp </a>
+                         <a href="{% url 'update_comment' id=i.id %}"><button type="button" class="btn btn-alert">Edit</button></a>
+                    {% endif %}
                 </div>
             </div>
         </div>

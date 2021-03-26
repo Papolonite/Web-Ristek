@@ -76,6 +76,12 @@ def blog_detail(request,id):
 
     # Creating comment form if user logged in
     if request.user.is_authenticated:
+
+        #Checking Owenership
+        if request.user == blog_data_detail.user_blog.user:
+            context['id'] = blog_data_detail.id
+
+        #Creating Comment Form
         comment_form = create_comment_form(request)
         context['comment_form'] = comment_form
 
@@ -113,6 +119,8 @@ def create_post(request):
                 blog_content = content
             )
             new_blog.save()
+            messages.success(request, f'Blog {title} Successfully Created')
+            return redirect('home')
 
 
     return render(request, 'create_post.html', context)
@@ -125,3 +133,25 @@ def delete_post(request,id):
         return redirect('home')
     else:
         messages.error(request,f"Link cannot be found")
+        return redirect('home')
+
+def update_post(request,id):
+    context = {}
+    blog_now = Blog.objects.get(id=id)
+    if request.user == blog_now.user_blog.user:
+        blog_form = PostCreation(request.POST or None, instance = blog_now)
+        context['blog_form'] = blog_form
+
+        if blog_form.is_valid():
+            blog_form.save()
+            messages.success(request,f'Blog {blog_now.title} has been updated')
+            return redirect('home')
+
+        return render(request,'create_post.html', context)
+
+    else:
+        messages.error(request,f'Link does not exist')
+        return redirect('home')
+
+
+

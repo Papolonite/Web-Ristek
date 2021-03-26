@@ -2,6 +2,13 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
+    {% if messages %}
+        {% for message in messages  %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
     {% if not blog %}
         <p class="text-muted center"> Nothing here </p>
     {% else %}
