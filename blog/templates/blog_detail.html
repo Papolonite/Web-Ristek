@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    {% if not title %}
+        <p class="text-muted center"> This blog doesn't exist in the Database </p>
+    {% else %}
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">{{ title }}</h1>
+                <div class="d-inline-flex p-2">
+                    <p class="lead">Posted by : {{ posted_by }}  &nbsp |</p>
+                    <p class="lead">&nbsp Posted at : {{ posted_time }}  &nbsp |</p>
+                    <p class="lead">&nbsp Like : {{ posted_time }}  &nbsp </p>
+                </div>
+                <hr class="my-4">
+                <p class="text-break">{{ content }}</p>
+            </div>
+        </div>
+        <h2>Comment</h2>
+    {% endif %}
+    {% if comment_form %}
+        <form method = "POST">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+        <input class="btn btn-light" type="submit" value="Submit">
+        </form>
+    {% endif %}
+    {% if comment %}
+    {% for i in comment %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="card-text">{{ i.comment }}</p>
+                <div class="d-inline-flex p-2">
+                     <p class="card-text"><small class="text-muted">By : {{ i.user_comment.user.username }} &nbsp | </small></p>
+                    <p class="card-text"><small class="text-muted">&nbsp Time : {{ i.comment_date }} <br></small></p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <p> No Comment posted yet </p>
+    {% endif %}
+{% endblock content %}
