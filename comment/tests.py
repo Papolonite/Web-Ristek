@@ -13,15 +13,6 @@ class BlogTest(TestCase):  # Testing for database
         comment = Comment.objects.create(user_comment=blog_user, on_blog=blog, comment_content="Hello")
 
     # Checking whether data is created correctly or not in database
-    def test_check_amount_of_user(self):
-        self.assertEqual(len(User.objects.all()),1)
-
-    def test_check_amount_of_blog_user(self):
-        self.assertEqual(len(Blog_user.objects.all()),1)
-
-    def test_check_amount_of_blog(self):
-        self.assertEqual(len(Blog.objects.all()),1)
 
     def test_check_amount_of_comment(self):
         self.assertEqual(len(Comment.objects.all()),1)
-
