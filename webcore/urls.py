@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login_register_screen.urls')),
     path('', include('blog.urls')),
-    path('', include('comment.urls'))
+    path('', include('comment.urls')),
+    path('', include('like.urls'))
 ]

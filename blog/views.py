@@ -3,6 +3,7 @@ from blog.models import Blog, Blog_user
 from .forms import PostCreation
 from django.contrib import messages
 from comment.views import create_comment_form, get_comment_data, save_comment
+from like.views import like_check
 
 def home_view(request):
     blog_data = Blog.objects.all()
@@ -79,7 +80,7 @@ def blog_detail(request,id):
 
         #Checking Owenership
         if request.user == blog_data_detail.user_blog.user:
-            context['id'] = blog_data_detail.id
+            context['isEdit'] = True
 
         #Creating Comment Form
         comment_form = create_comment_form(request)
@@ -90,12 +91,14 @@ def blog_detail(request,id):
             comment_data = comment_form.cleaned_data.get('comment')
             save_comment(Blog_user.objects.get(user=request.user), blog_data_detail, comment_data)
 
+    context['id'] = blog_data_detail.id
     context['title'] = blog_data_detail.title
     context['content'] = blog_data_detail.blog_content
     context['posted_by'] = blog_data_detail.user_blog.user.username
     context['posted_time'] = blog_data_detail.created_date
     context['like_count'] = len(blog_data_detail.like.all())
     context['comment'] = []
+    context['like'] = like_check(request,blog_data_detail.id)
 
     comment_data = get_comment_data()
     for i in comment_data:

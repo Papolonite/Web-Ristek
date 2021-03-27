@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'login_register_screen',
     'comment',
     'crispy_forms',
+    'like'
 ]
 
 MIDDLEWARE = [
