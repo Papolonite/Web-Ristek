@@ -36,7 +36,7 @@ def home_view(request):
     return render(request,'home.html',context)
 
 def your_post_view(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         blog_data = Blog.objects.all()
         blog_context = []
 
