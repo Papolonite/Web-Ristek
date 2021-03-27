@@ -99,6 +99,8 @@ def blog_detail(request,id):
     context['like_count'] = len(blog_data_detail.like.all())
     context['comment'] = []
     context['like'] = like_check(request,blog_data_detail.id)
+    if blog_data_detail.thumbnail:
+        context['img_url'] = blog_data_detail.thumbnail.url
 
     comment_data = get_comment_data()
     for i in comment_data:
