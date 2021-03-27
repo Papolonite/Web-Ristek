@@ -11,10 +11,15 @@
                 <div class="d-inline-flex p-2">
                     <p class="lead">Posted by : {{ posted_by }}  &nbsp |</p>
                     <p class="lead">&nbsp Posted at : {{ posted_time }}  &nbsp |</p>
-                    <p class="lead">&nbsp Like : {{ posted_time }}  &nbsp </p>
-                    {% if id  %}
+                    <p class="lead">&nbsp Like : {{ like_count }}  &nbsp </p>
+                    {% if isEdit  %}
                         <a href="{% url 'delete_post' id=id %}"><button type="button" class="btn btn-danger">Delete</button></a>
                         <a href="{% url 'update_post' id=id %}"><button type="button" class="btn btn-success">Edit</button></a>    
+                    {% endif %}
+                    {% if like %}
+                        <a href="{% url 'unlike' id=id %}"><button type="button" class="btn btn-primary">Unlike</button></a>
+                    {% else %}
+                        <a href="{% url 'like' id=id %}"><button type="button" class="btn btn-primary">Like</button></a>
                     {% endif %}
                 </div>
                 <hr class="my-4">
