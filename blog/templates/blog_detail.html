@@ -23,6 +23,9 @@
                     {% endif %}
                 </div>
                 <hr class="my-4">
+                {% if img_url %}
+                    <img src="{{ img_url }}" alt="img" style="width: 100%;">
+                {% endif %}
                 <p class="text-break">{{ content }}</p>
             </div>
         </div>
